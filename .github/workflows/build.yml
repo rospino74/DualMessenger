@@ -34,6 +34,9 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
+    - uses: Swatinem/rust-cache@v1
+      with:
+         working-directory: src-tauri/
     - name: Installo le librerie
       if: matrix.platform == 'ubuntu-latest'
       run: |
@@ -42,14 +45,12 @@ jobs:
     - name: Installo le dipendenze
       run: yarn
     - name: Compilo il programma
-      run: yarn build
-    - name: Upload a Build Artifact
+      uses: tauri-apps/tauri-action@v0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Carico il risultato
       uses: actions/upload-artifact@v3.0.0
       with:
         name: artifacts
-        path: "src-tauri/target/release/"
+        path: "src-tauri/target/release/bundle/"
         if-no-files-found: error
-
-#     - uses: tauri-apps/tauri-action@v0
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
