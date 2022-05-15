@@ -1,30 +1,44 @@
-<script>
-	export let name;
+<script lang="ts">
+    // @ts-ignore
+    import logo from "../resources/logo.png";
+
+    export let name: string;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+    <img class="logo" src={logo} alt="Svelte Logo" />
+    <h1>Hello {name}!</h1>
 </main>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<style lang="scss">
+    :root {
+        --color: hsl(171, 100%, 91%);
+    }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+    main {
+        text-align: center;
+        padding: 1em;
+        margin: 0 auto;
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+        .logo {
+            height: 16rem;
+            width: 16rem;
+            filter: grayscale(100%) sepia(100%) hue-rotate(90deg);
+        }
+
+        h1 {
+            color: var(--color);
+            text-transform: uppercase;
+            font-size: 4rem;
+            font-weight: 100;
+            line-height: 1.1;
+            margin: 2rem auto;
+            max-width: 14rem;
+        
+            @media (min-width: 480px) {
+                max-width: none;
+            }
+        }
+    }
+
 </style>
