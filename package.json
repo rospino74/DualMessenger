@@ -1,0 +1,19 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.31",
+    "@tauri-apps/api": "^1.0.0-rc.5",
+    "@tauri-apps/cli": "^1.0.0-rc.10",
+    "svelte": "^3.44.2",
+    "vite": "^2.7.1"
+  },
+  "dependencies": {
+    "sirv-cli": "^1.0.0"
+  }
+}
