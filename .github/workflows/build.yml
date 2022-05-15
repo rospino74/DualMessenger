@@ -1,0 +1,55 @@
+name: "build"
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+      - "public/**"
+      - ".github/**"
+    branches:
+      - master
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "public/**"
+      - ".github/**"
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Installo Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16
+    - name: Installo Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: Installo le librerie
+      if: matrix.platform == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+    - name: Installo le dipendenze
+      run: yarn
+    - name: Compilo il programma
+      run: yarn build
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: artifacts
+        path: "src-tauri/target/release/"
+        if-no-files-found: error
+
+#     - uses: tauri-apps/tauri-action@v0
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
