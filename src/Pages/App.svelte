@@ -3,6 +3,7 @@
   import AppCard from "../components/AppCard.svelte";
   import LoadingIcon from "../components/LoadingIcon.svelte";
   import Modal from "../components/Modal.svelte";
+  import FilePicker from "../components/FilePicker.svelte";
 
   const apps = [
     {
@@ -66,7 +67,9 @@
 
 <Modal bind:isOpen={isUploadModalOpen} closeable>
   <h3 class="font-bold text-3xl text-center">Scegli un'applicazione</h3>
-  <p class="py-4 text-center" />
+  <p class="py-4 text-center flex justify-center">
+    <FilePicker />
+  </p>
   <div class="modal-action">
     <button class="btn btn-primary btn-outline gap-2">
       <DownloadIcon size="20" />
