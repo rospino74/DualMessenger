@@ -8,7 +8,7 @@
     // Bottone e  correlati
     let deleteButton;
     let cardWidth, deleteButtonOffsetLeft;
-    
+
     // Calcolo il margine del bottone
     // $: deleteButtonMargin = (cardWidth - deleteButtonOffsetLeft) / cardWidth * 100;
 
@@ -32,23 +32,26 @@
     };
 </script>
 
-<div class="card w-100 bg-base-100 shadow-xl" bind:offsetWidth={cardWidth}>
+<div class="card w-full bg-base-100 shadow-xl" bind:offsetWidth={cardWidth}>
     <div
         class="content card-body text-base-content"
         on:mouseenter={showButton}
         on:mouseleave={hideButton}
     >
         <!-- Con ultimo evento mostro il bottone appena entro con il mouse -->
-        <img src={icon} alt="{name}'s icon" class="h-16 w-16" />
+        <img src={icon} alt="{name}'s icon" class="h-8 w-8 md:h-16 md:w-16" />
         <div class="identifier">
-            <span class="font-bold text-3xl mr-1">{name}</span>
-            <span class="font-light text-lg">{javaPackage}</span>
+            <span class="font-bold text-lg md:text-3xl mr-1">{name}</span>
+            <span class="font-light text-base md:text-lg">{javaPackage}</span>
         </div>
         <div class="font-light text-lg">
             v<span class="font-bold text-primary">{version}</span>
         </div>
         <div class="action" bind:this={deleteButton}>
-            <button class="btn btn-outline btn-primary gap-2" on:click={() => dispatch("uninstall")}>
+            <button
+                class="btn btn-outline btn-primary gap-2"
+                on:click={() => dispatch("uninstall")}
+            >
                 <Trash2Icon size="20" class="h-6 w-6" />
                 Delete
             </button>
@@ -63,14 +66,11 @@
         position: relative;
 
         & > * {
-            @apply block m-0 mr-5 last:mr-0;
+            @apply block m-0 mr-1 md:mr-5 last:mr-0;
         }
 
         .identifier {
-            @apply mr-auto;
-            @media screen and (max-width: 35rem) {
-                @apply flex-col flex items-start;
-            }
+            @apply mr-auto md:flex-col md:flex md:items-start;
         }
 
         .action {

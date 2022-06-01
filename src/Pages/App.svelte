@@ -3,7 +3,7 @@
   import AppCard from "../components/AppCard.svelte";
   import LoadingIcon from "../components/LoadingIcon.svelte";
   import Modal from "../components/Modal.svelte";
-  import FilePicker from "../components/FilePicker.svelte";
+  import APKPicker from "../components/APKPicker.svelte";
 
   const apps = [
     {
@@ -66,9 +66,10 @@
 </Modal>
 
 <Modal bind:isOpen={isUploadModalOpen} closeable>
-  <h3 class="font-bold text-3xl text-center">Scegli un'applicazione</h3>
-  <p class="py-4 text-center flex justify-center">
-    <FilePicker />
+  <h3 class="font-bold text-3xl text-center">Pick an APK</h3>
+  <p class="py-4 text-center flex justify-center items-center flex-col">
+    <span class="block mb-2">Please select the APK of the application you want to install on the device.</span>
+    <APKPicker />
   </p>
   <div class="modal-action">
     <button class="btn btn-primary btn-outline gap-2">
