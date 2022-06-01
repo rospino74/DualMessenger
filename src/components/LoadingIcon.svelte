@@ -33,7 +33,7 @@
 
             
             &::before {
-                animation: sizing ($speed / 2) infinite alternate;
+                animation: sizing calc($speed / 2) infinite alternate;
                 content: '';
                 @apply rounded bg-primary block h-full w-full;
             }
