@@ -1,8 +1,8 @@
 <script lang="ts">
     import Portal from "svelte-portal";
 
-    export let isOpen: boolean;
-    export let closeable: boolean;
+    export let isOpen: boolean = false;
+    export let closeable: boolean = false;
 
     // Generate a random portal ID
     const portalId = Math.random().toString(36).substring(2, 15);
