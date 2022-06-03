@@ -1,9 +1,9 @@
 import { defineConfig } from "vite"
 import { svelte } from "@sveltejs/vite-plugin-svelte"
 import sveltePreprocess from "svelte-preprocess"
-const path = require("path");
+import { join } from "path"
 
-const style_folder = path.join(__dirname, './src/styles');
+const style_folder = join(__dirname, "./src/styles");
 
 export default defineConfig({
   root: "src",
@@ -32,5 +32,21 @@ export default defineConfig({
     target: "es2015",
     outDir: "../dist",
     emptyOutDir: true,
-  }
-})
+    rollupOptions: {
+      // I like that :) https://stackoverflow.com/q/71180561/
+      output: {
+        assetFileNames: (assetInfo) => {
+          let extType = assetInfo.name.split('.')[1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = "img";
+          } else if (/woff|woff2/.test(extType)) {
+            extType = "css";
+          }
+          return `${extType}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: "js/[name]-[hash].js",
+        entryFileNames: "js/[name]-[hash].js",
+      },
+    },
+  },
+});
