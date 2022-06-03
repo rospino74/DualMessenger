@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { DownloadIcon, PlusIcon, XIcon } from "svelte-feather-icons";
   import AppCard from "../components/AppCard.svelte";
   import LoadingIcon from "../components/LoadingIcon.svelte";
@@ -31,9 +31,17 @@
   let isUploadModalOpen = true;
   let isUninstalling = false;
 
-  function uninstall(e) {
+  function uninstall() {
     isLoadingModalOpen = true;
     isUninstalling = true;
+  }
+
+  // File picker
+  let file: string;
+
+  function install() {
+    isLoadingModalOpen = true;
+    isUninstalling = false;
   }
 </script>
 
@@ -46,7 +54,7 @@
   {/each}
 </main>
 
-<Modal isOpen={isLoadingModalOpen}>
+<Modal bind:isOpen={isLoadingModalOpen}>
   <h3 class="font-bold text-3xl text-center">
     {#if isUninstalling}
       Disinstallazione
@@ -69,7 +77,7 @@
   <h3 class="font-bold text-3xl text-center">Pick an APK</h3>
   <p class="py-4 text-center flex justify-center items-center flex-col">
     <span class="block mb-2">Please select the APK of the application you want to install on the device.</span>
-    <APKPicker />
+    <APKPicker bind:file={file} />
   </p>
   <div class="modal-action">
     <button class="btn btn-primary btn-outline gap-2">
