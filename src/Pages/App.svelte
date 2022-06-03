@@ -4,6 +4,7 @@
   import LoadingIcon from "../components/LoadingIcon.svelte";
   import Modal from "../components/Modal.svelte";
   import APKPicker from "../components/APKPicker.svelte";
+  import SysInfo from "../components/SysInfo.svelte";
 
   const apps = [
     {
@@ -52,6 +53,7 @@
       <AppCard {...app} on:uninstall={uninstall} />
     </div>
   {/each}
+  <SysInfo />
 </main>
 
 <Modal bind:isOpen={isLoadingModalOpen}>

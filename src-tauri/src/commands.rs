@@ -1,4 +1,6 @@
 use tauri::{Invoke, Wry, command, generate_handler};
+use sys_locale::get_locale as get_system_locale;
+
 #[cfg(not(target_os = "windows"))]
 use std::process::Command;
 #[cfg(target_os = "windows")]
@@ -30,8 +32,14 @@ fn get_sys_version() -> String {
     return format!("{} {}", product_name, product_version);
 }
 
+#[command]
+fn get_locale() -> String {
+    get_system_locale().unwrap_or_else(|| String::from("en-US"))
+}
+
 pub fn enumerate_native_handlers() -> Box<dyn Fn(Invoke<Wry>) + Send + Sync + 'static> {
     Box::new(generate_handler![
-        get_sys_version
+        get_sys_version,
+        get_locale
     ])
 }
