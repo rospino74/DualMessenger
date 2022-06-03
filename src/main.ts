@@ -6,7 +6,9 @@ const app = new App({
 });
 
 invoke("get_sys_version").then(version => {
-	alert(version);
+	const el = document.createElement("div");
+	el.innerHTML = `<h1>Tauri-Apps v${version}</h1>`;
+	document.body.appendChild(el);
 });
 
 export default app;
