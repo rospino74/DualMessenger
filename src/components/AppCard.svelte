@@ -40,7 +40,7 @@
         on:mouseleave={hideButton}
     >
         <!-- Con ultimo evento mostro il bottone appena entro con il mouse -->
-        <img src={icon} alt="{name}'s icon" class="h-8 w-8 md:h-16 md:w-16" />
+        <img src={icon} alt="{name}'s icon" class="h-8 w-8 md:h-16 md:w-16" draggable="false" on:dragstart|preventDefault/>
         <div class="identifier">
             <span class="font-bold text-lg md:text-3xl mr-1">{name}</span>
             <span class="font-light text-base md:text-lg">{javaPackage}</span>
@@ -68,6 +68,12 @@
 
         & > * {
             @apply block m-0 mr-1 md:mr-5 last:mr-0;
+        }
+
+        img {
+            pointer-events: none;
+            user-drag: none; 
+            user-select: none;
         }
 
         .identifier {
