@@ -1,0 +1,15 @@
+{
+    "uninstall": "Disinstalla",
+    "uninstall_in_progress": "Disinstallazione in corso",
+    "install": "Installa",
+    "install_in_progress": "Installazione in corso",
+    "upgrade": "Aggiorna",
+    "cancel": "Annulla",
+    "ok": "OK",
+    "list_of_packages": "Lista dei pacchetti installati",
+    "pick_an_apk": "Seleziona un APK",
+    "pick_a_package": "Per favore scegli l'APK dell'applicazione che vuoi installare sul tuo dispositivo",
+    "waiting_for_file": "Sto aspettando un file...",
+    "error_while_selecting": "C'è stato un errore nella selezione del file",
+    "press_to_select": "Premi per selezionare un APK"
+}

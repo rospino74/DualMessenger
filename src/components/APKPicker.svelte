@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _ } from "svelte-i18n";
     import { selectAPK } from "../logic/selectFile";
     export let file: string  = '';
 
@@ -29,14 +30,14 @@
         <span class="block">
             {#if filePromise}
                 {#await filePromise}
-                    Waiting for file selection...
-                {:then _}
+                    {$_("waiting_for_file")}
+                {:then ignored}
                     {file}
-                {:catch _}
-                    Error while selecting file
+                {:catch ignored}
+                    {$_("error_while_selecting")}
                 {/await}
             {:else}
-                Press here to select an APK
+                {$_("press_to_select")}
             {/if}
         </span>
     </div>

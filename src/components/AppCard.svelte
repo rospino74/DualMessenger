@@ -1,4 +1,5 @@
 <script>
+    import { _ } from "svelte-i18n";
     import { Trash2Icon } from "svelte-feather-icons";
     import { createEventDispatcher } from "svelte";
 
@@ -53,7 +54,7 @@
                 on:click={() => dispatch("uninstall")}
             >
                 <Trash2Icon size="20" class="h-6 w-6" />
-                Delete
+                {$_("uninstall")}
             </button>
         </div>
     </div>

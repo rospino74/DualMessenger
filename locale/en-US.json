@@ -1,0 +1,15 @@
+{
+    "uninstall": "Uninstall",
+    "uninstall_in_progress": "Uninstall in progress",
+    "install": "Install",
+    "install_in_progress": "Install in progress",
+    "upgrade": "Upgrade",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "list_of_packages": "List of installed packages",
+    "pick_an_apk": "Pick an APK",
+    "pick_a_package": "Please select the APK of the application you want to install on the device.",
+    "waiting_for_file": "Waiting for selection...",
+    "error_while_selecting": "An error occurred",
+    "press_to_select": "Press here to pick an APK"
+}

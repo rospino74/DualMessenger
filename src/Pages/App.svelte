@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   import { DownloadIcon, PlusIcon, XIcon } from "svelte-feather-icons";
   import AppCard from "../components/AppCard.svelte";
   import LoadingIcon from "../components/LoadingIcon.svelte";
@@ -46,7 +47,7 @@
   }
 </script>
 
-<h1 class="prose-h1">List of installed apps</h1>
+<h1 class="prose-h1">{$_("list_of_packages")}</h1>
 <main>
   {#each apps as app (app.name)}
     <div>
@@ -59,39 +60,38 @@
 <Modal bind:isOpen={isLoadingModalOpen}>
   <h3 class="font-bold text-3xl text-center">
     {#if isUninstalling}
-      Disinstallazione
+      {$_("uninstall_in_progress")}
     {:else}
-      Installazione
+      {$_("install_in_progress")}
     {/if}
-    in corso
   </h3>
-  <p class="py-4 text-center">
+  <!-- <p class="py-4 text-center">
     Attendi mentre l'applicazione viene {#if isUninstalling}disinstallata{:else}installata{/if}&hellip;
     <br />
     Puoi iniziare già a pregustarti il risultato.
-  </p>
+  </p> -->
   <div class="m-auto mt-4 h-2 w-full">
     <LoadingIcon />
   </div>
 </Modal>
 
 <Modal bind:isOpen={isUploadModalOpen} closeable>
-  <h3 class="font-bold text-3xl text-center">Pick an APK</h3>
+  <h3 class="font-bold text-3xl text-center">{$_("pick_an_apk")}</h3>
   <p class="py-4 text-center flex justify-center items-center flex-col">
-    <span class="block mb-2">Please select the APK of the application you want to install on the device.</span>
+    <span class="block mb-2">{$_("pick_a_package")}</span>
     <APKPicker bind:file={file} />
   </p>
   <div class="modal-action">
     <button class="btn btn-primary btn-outline gap-2">
       <DownloadIcon size="20" />
-      Installa
+      {$_("install")}
     </button>
     <button
       class="btn btn-error btn-outline gap-2"
       on:click={() => (isUploadModalOpen = false)}
     >
       <XIcon size="20" />
-      Chiudi
+      {$_("cancel")}
     </button>
   </div>
 </Modal>
