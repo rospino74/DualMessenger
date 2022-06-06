@@ -22,6 +22,7 @@
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "sass": "^1.51.0",
+    "sirv-cli": "^1.0.0",
     "svelte": "^3.44.2",
     "svelte-loading-spinners": "^0.1.7",
     "svelte-preprocess": "^4.0.0",
@@ -32,7 +33,6 @@
   },
   "dependencies": {
     "daisyui": "^2.15.2",
-    "sirv-cli": "^1.0.0",
     "svelte-feather-icons": "^4.0.0",
     "svelte-i18n": "^3.4.0",
     "svelte-portal": "^2.1.2"
