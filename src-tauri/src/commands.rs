@@ -1,7 +1,7 @@
 use super::adb::*;
 use std::process::Command;
 use sys_locale::get_locale as get_system_locale;
-use tauri::{command, generate_handler, Invoke, Result as TResult, Wry};
+use tauri::{command, generate_handler, Invoke, Wry};
 use which::which;
 
 #[cfg(target_os = "windows")]
@@ -48,12 +48,14 @@ fn is_adb_installed() -> bool {
 }
 
 #[command]
-fn get_adb_devices() -> TResult<Vec<String>> {
-// fn get_adb_devices() -> TResult<Vec<Device>> {
-    let output = Command::new("adb").arg("devices").output()?;
+fn get_adb_devices() -> Vec<Device> {
+    let output = Command::new("adb")
+        .arg("devices")
+        .output()
+        .expect("failed to get the adb devices");
 
     // Drop all the lines until the device list
-    let result = String::from_utf8(output.stdout).unwrap();
+    let result = String::from_utf8(output.stdout).expect("failed to parse the device string");
     let mut lines = result
         .lines()
         .skip_while(|line| !line.starts_with("List of devices attached"));
@@ -61,32 +63,24 @@ fn get_adb_devices() -> TResult<Vec<String>> {
     lines.next();
 
     // Now we can iterate over the lines and parse the device
-    // let devices: Vec<_> = lines
-    //     .filter_map(|line| {
-    //         // Split the line by spaces
-    //         let mut parts = line.split_whitespace();
-    //         // Get the device identifier
-    //         let device_id_str = parts.next().unwrap();
-    //         let device_id = u64::from_str_radix(device_id_str, 16).unwrap();
+    let devices: Vec<_> = lines
+        .map(|line| {
+            let mut parts = line.split_whitespace();
+            let device_id = u64::from_str_radix(parts.next().unwrap(), 16).unwrap();
+            let device_type_str = parts.next().unwrap();
 
-    //         // Get the device type
-    //         let device_type_str = parts.next().unwrap();
-    //         let device_type = if device_type_str == "device" {
-    //             DeviceType::Device
-    //         } else {
-    //             DeviceType::Emulator
-    //         };
+            let authorized = device_type_str != "unauthorized";
+            let device_type = if device_type_str == "device" {
+                DeviceType::Device
+            } else {
+                DeviceType::Emulator
+            };
 
-    //         Some(Device::new(
-    //             device_id,
-    //             device_type,
-    //             device_type_str != "unauthorized",
-    //         ))
-    //     })
-    //     .collect();
+            Device::new(device_id, device_type, authorized)
+        })
+        .collect();
 
-    let devices = lines.map(|s| String::from(s)).collect::<Vec<String>>();
-    Ok(devices)
+    devices
 }
 
 pub fn enumerate_native_handlers() -> Box<dyn Fn(Invoke<Wry>) + Send + Sync + 'static> {
