@@ -64,7 +64,11 @@ fn get_adb_devices() -> Vec<Device> {
 
     // Now we can iterate over the lines and parse the device
     let devices: Vec<_> = lines
-        .map(|line| {
+        .filter_map(|line| {
+            if line.is_empty() {
+                return None;
+            }
+
             let mut parts = line.split_whitespace();
             let device_id = u64::from_str_radix(parts.next().unwrap(), 16).unwrap();
             let device_type_str = parts.next().unwrap();
@@ -76,7 +80,7 @@ fn get_adb_devices() -> Vec<Device> {
                 DeviceType::Emulator
             };
 
-            Device::new(device_id, device_type, authorized)
+            Some(Device::new(device_id, device_type, authorized))
         })
         .collect();
 
