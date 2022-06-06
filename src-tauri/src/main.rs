@@ -4,6 +4,7 @@
 )]
 
 mod commands;
+mod adb;
 
 fn main() {
   tauri::Builder::default()

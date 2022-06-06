@@ -1,13 +1,22 @@
 <script>
-import { invoke } from '@tauri-apps/api/tauri'
+    import { invoke } from "@tauri-apps/api/tauri";
 
-const promises = [
-    [invoke("get_sys_version"), "OS Version"],
-    [invoke("get_locale"), "System locale"],
-];
+    let prose;
+
+    const promises = [
+        [invoke("get_sys_version"), "OS Version"],
+        [invoke("get_locale"), "System locale"],
+        [invoke("is_adb_installed"), "ADB installed"],
+    ];
+
+    invoke("get_adb_devices").then((obj) => {
+        let e = document.createElement("code");
+        e.innerText = JSON.stringify(obj, null, 2);
+        prose.appendChild(e);
+    });
 </script>
 
-<div class="prose">
+<div class="prose" bind:this={prose}>
     <h1>System info</h1>
     <ul>
         {#each promises as promise}
@@ -15,10 +24,10 @@ const promises = [
                 {promise[1]}
                 {#await promise[0]}
                     <span class="waiting">Waiting...</span>
-                {:then result} 
+                {:then result}
                     <span class="value">{result}</span>
                 {/await}
-            </li>    
+            </li>
         {/each}
     </ul>
 </div>

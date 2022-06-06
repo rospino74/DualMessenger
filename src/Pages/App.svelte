@@ -65,11 +65,6 @@
       {$_("install_in_progress")}
     {/if}
   </h3>
-  <!-- <p class="py-4 text-center">
-    Attendi mentre l'applicazione viene {#if isUninstalling}disinstallata{:else}installata{/if}&hellip;
-    <br />
-    Puoi iniziare già a pregustarti il risultato.
-  </p> -->
   <div class="m-auto mt-4 h-2 w-full">
     <LoadingIcon />
   </div>
