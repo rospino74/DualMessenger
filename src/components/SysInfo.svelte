@@ -9,11 +9,11 @@
         [invoke("is_adb_installed"), "ADB installed"],
     ];
 
-    invoke("get_adb_devices").then((obj) => {
-        let e = document.createElement("code");
-        e.innerText = JSON.stringify(obj, null, 2);
-        prose.appendChild(e);
-    });
+    // invoke("get_adb_devices").then((obj) => {
+    //     let e = document.createElement("code");
+    //     e.innerText = JSON.stringify(obj, null, 2);
+    //     prose.appendChild(e);
+    // });
 </script>
 
 <div class="prose" bind:this={prose}>
