@@ -2,9 +2,8 @@ use super::adb::*;
 use sys_locale::get_locale as get_system_locale;
 use tauri::{command, generate_handler, Invoke, Wry};
 use which::which;
-
-#[cfg(not(target_os = "windows"))]
 use std::process::Command;
+
 #[cfg(target_os = "windows")]
 use {winreg::enums::HKEY_LOCAL_MACHINE, winreg::RegKey};
 
