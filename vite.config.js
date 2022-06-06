@@ -19,6 +19,10 @@ export default defineConfig({
           includePaths: [style_folder],
         }
       }),
+      compilerOptions: {
+        dev: process.env.NODE_ENV !== "production",
+        cssHash: ({ hash, css, name, filename }) => `${name.toLowerCase()}-${hash(css)}${hash(filename)}`,
+      }
     })
   ],
   server: {
