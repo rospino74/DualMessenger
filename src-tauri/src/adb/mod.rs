@@ -1,6 +1,6 @@
 use derive_getters::Getters;
 use serde::{Deserialize, Serialize};
-use std::net::Ipv4Addr;
+use text_io::scan;
 
 #[derive(Serialize, Deserialize)]
 pub enum DeviceType {
@@ -26,7 +26,7 @@ impl Device {
         }
     }
 
-    pub fn new_online(ip: String, device_type: DeviceType, authorized: bool) -> Self {       
+    pub fn new_online(ip: String, device_type: DeviceType, authorized: bool) -> Self {
         Self {
             id: Device::convert_ip_to_id(ip),
             device_type,
@@ -44,21 +44,25 @@ impl Device {
     }
 
     fn convert_ip_to_id(ip: String) -> u64 {
-        let mut address_parts = ip.split(":");
-        let ip = address_parts.next().unwrap().parse::<Ipv4Addr>().unwrap();
-        let port = address_parts.next().unwrap().parse::<u16>().unwrap();
-
-        let ip_id: u32 = ip.into();
+        let (a, b, c, d, port): (u64, u64, u64, u64, u64);
+        scan!(ip.bytes() => "{}.{}.{}.{}:{}", a, b, c, d, port);
 
         // First 4 bytes are the ip, the last 2 bytes are the port
-        ((ip_id as u64) << 32) + port as u64
+        ((a << 24 | b << 16 | c << 8 | d) << 32) + port
     }
 
     fn convert_id_to_ip(id: u64) -> String {
         let ip_id = (id >> 32) as u32;
         let port = (id & 0xFFFF) as u16;
 
-        format!("{}:{}", Ipv4Addr::from(ip_id), port)
+        format!(
+            "{}.{}.{}.{}:{}",
+            ip_id >> 24,
+            (ip_id >> 16) & 0xFF,
+            (ip_id >> 8) & 0xFF,
+            ip_id & 0xFF,
+            port
+        )
     }
 }
 
