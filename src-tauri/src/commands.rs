@@ -2,8 +2,8 @@ use super::adb::*;
 use std::process::Command;
 use sys_locale::get_locale as get_system_locale;
 use tauri::{command, generate_handler, Invoke, Wry};
-use which::which;
 use text_io::scan;
+use which::which;
 
 #[cfg(target_os = "windows")]
 use {winreg::enums::HKEY_LOCAL_MACHINE, winreg::RegKey};
@@ -74,7 +74,16 @@ fn get_adb_users(device: Device) -> Vec<User> {
             }
 
             let (user_id, user_name, number, status): (u32, String, u64, String);
-            scan!(line.bytes() => "\t\tUserInfo{{{}:{}:{}}} {}", user_id, user_name, number, status);
+            let mut it = line.bytes().map(|b| {
+                if b == b'}' {
+                    b']'
+                } else if b == b'{' {
+                    b'['
+                } else {
+                    b
+                }
+            }); // BUG in scan!() macro
+            scan!(it => "\tUserInfo[{}:{}:{}] {}", user_id, user_name, number, status);
 
             Some(User::new(user_id, user_name))
         })
@@ -108,14 +117,8 @@ fn get_adb_devices() -> Vec<Device> {
             let mut parts = line.split_whitespace();
             let device_id_str = parts.next().unwrap();
             let is_online = device_id_str.contains(".");
-            let device_id = if is_online {
-                u64::from_str_radix(device_id_str, 16).unwrap()
-            } else {
-                Device::convert_ip_to_id(device_id_str.to_string())
-            };
 
             let device_type_str = parts.next().unwrap();
-
             let authorized = device_type_str != "unauthorized";
             let device_type = if device_type_str == "device" {
                 DeviceType::Device
@@ -123,7 +126,19 @@ fn get_adb_devices() -> Vec<Device> {
                 DeviceType::Emulator
             };
 
-            Some(Device::new(device_id, device_type, authorized, is_online))
+            if is_online {
+                Some(Device::new_online(
+                    device_id_str.to_string(),
+                    device_type,
+                    authorized,
+                ))
+            } else {
+                Some(Device::new(
+                    u64::from_str_radix(device_id_str, 16).unwrap(),
+                    device_type,
+                    authorized,
+                ))
+            }
         })
         .collect();
 

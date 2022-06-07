@@ -17,12 +17,21 @@ pub struct Device {
 }
 
 impl Device {
-    pub fn new(id: u64, device_type: DeviceType, authorized: bool, online: bool) -> Self {
+    pub fn new(id: u64, device_type: DeviceType, authorized: bool) -> Self {
         Self {
             id,
             device_type,
             authorized,
-            online,
+            online: false,
+        }
+    }
+
+    pub fn new_online(ip: String, device_type: DeviceType, authorized: bool) -> Self {       
+        Self {
+            id: Device::convert_ip_to_id(ip),
+            device_type,
+            authorized,
+            online: true,
         }
     }
 
@@ -34,7 +43,7 @@ impl Device {
         }
     }
 
-    pub fn convert_ip_to_id(ip: String) -> u64 {
+    fn convert_ip_to_id(ip: String) -> u64 {
         let mut address_parts = ip.split(":");
         let ip = address_parts.next().unwrap().parse::<Ipv4Addr>().unwrap();
         let port = address_parts.next().unwrap().parse::<u16>().unwrap();
@@ -42,7 +51,7 @@ impl Device {
         let ip_id: u32 = ip.into();
 
         // First 4 bytes are the ip, the last 2 bytes are the port
-        (ip_id as u64) << 32 + port
+        ((ip_id as u64) << 32) + port as u64
     }
 
     fn convert_id_to_ip(id: u64) -> String {
