@@ -4,7 +4,11 @@
 
 html,
 body {
-	@apply w-full h-full p-0 m-0 box-border bg-base-200 text-base-content;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+	@apply w-full h-full p-0 m-0 box-border bg-base-200 text-base-content overflow-hidden;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen-Sans", Ubuntu, Cantarell, "Helvetica Neue",
 		sans-serif;
+}
+
+body {
+	@apply absolute top-0 left-0 bottom-0 right-0 overflow-auto scroll-smooth;
 }
