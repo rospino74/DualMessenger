@@ -3,14 +3,14 @@ on:
   push:
     paths-ignore:
       - "**.md"
-      - "public/**"
+      - "locale/**"
       - ".github/**"
     branches:
       - master
   pull_request:
     paths-ignore:
       - "**.md"
-      - "public/**"
+      - "locale/**"
       - ".github/**"
     branches:
       - master
@@ -51,6 +51,6 @@ jobs:
     - name: Carico il risultato
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: artifacts
+        name: "artifacts-${{ matrix.platform }}"
         path: "src-tauri/target/release/bundle/"
         if-no-files-found: error
