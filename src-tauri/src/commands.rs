@@ -1,7 +1,6 @@
 use super::adb::*;
-use std::process::Command;
 use sys_locale::get_locale as get_system_locale;
-use tauri::{command, generate_handler, Invoke, Wry};
+use tauri::{command, generate_handler, Invoke, Wry, api::process::Command};
 use text_io::scan;
 use which::which;
 
@@ -13,11 +12,11 @@ use {winreg::enums::HKEY_LOCAL_MACHINE, winreg::RegKey};
 fn get_sys_version() -> String {
     // Exexute the command `uname -a` and return the output
     let output = Command::new("uname")
-        .arg("-a")
+        .args(["-a"])
         .output()
         .expect("failed to execute process");
 
-    return String::from_utf8(output.stdout).expect("failed to convert output to string");
+    return output.stdout;
 }
 
 #[cfg(target_os = "windows")]
@@ -63,8 +62,7 @@ fn get_adb_users(device: Device) -> Vec<User> {
         .expect("failed to get the user list");
 
     // Drop all the lines until the user list
-    let result = String::from_utf8(output.stdout).expect("failed to parse the user string");
-    let mut lines = result.lines().skip_while(|line| !line.starts_with("Users"));
+    let mut lines = output.stdout.lines().skip_while(|line| !line.starts_with("Users"));
     lines.next();
 
     let users: Vec<_> = lines
@@ -95,13 +93,12 @@ fn get_adb_users(device: Device) -> Vec<User> {
 #[command]
 fn get_adb_devices() -> Vec<Device> {
     let output = Command::new("adb")
-        .arg("devices")
+        .args(["devices"])
         .output()
         .expect("failed to get the adb devices");
 
     // Drop all the lines until the device list
-    let result = String::from_utf8(output.stdout).expect("failed to parse the device string");
-    let mut lines = result
+    let mut lines = output.stdout
         .lines()
         .skip_while(|line| !line.starts_with("List of devices attached"));
     // Drop the first line
