@@ -3,6 +3,7 @@ use std::process::Command;
 use sys_locale::get_locale as get_system_locale;
 use tauri::{command, generate_handler, Invoke, Wry};
 use which::which;
+use text_io::scan;
 
 #[cfg(target_os = "windows")]
 use {winreg::enums::HKEY_LOCAL_MACHINE, winreg::RegKey};
@@ -48,6 +49,41 @@ fn is_adb_installed() -> bool {
 }
 
 #[command]
+fn get_adb_users(device: Device) -> Vec<User> {
+    let id = if *device.online() {
+        device.ip().unwrap()
+    } else {
+        device.id().to_string()
+    };
+
+    let output = Command::new("adb")
+        .args(["-s", &id]) // Specify the device serial id
+        .args(["shell", "pm", "list", "users"])
+        .output()
+        .expect("failed to get the user list");
+
+    // Drop all the lines until the user list
+    let result = String::from_utf8(output.stdout).expect("failed to parse the user string");
+    let mut lines = result.lines().skip_while(|line| !line.starts_with("Users"));
+    lines.next();
+
+    let users: Vec<_> = lines
+        .filter_map(|line| {
+            if line.is_empty() {
+                return None;
+            }
+
+            let (user_id, user_name, number, status): (u32, String, u64, String);
+            scan!(line.bytes() => "\t\tUserInfo{{{}:{}:{}}} {}", user_id, user_name, number, status);
+
+            Some(User::new(user_id, user_name))
+        })
+        .collect();
+
+    users
+}
+
+#[command]
 fn get_adb_devices() -> Vec<Device> {
     let output = Command::new("adb")
         .arg("devices")
@@ -70,7 +106,14 @@ fn get_adb_devices() -> Vec<Device> {
             }
 
             let mut parts = line.split_whitespace();
-            let device_id = u64::from_str_radix(parts.next().unwrap(), 16).unwrap();
+            let device_id_str = parts.next().unwrap();
+            let is_online = device_id_str.contains(".");
+            let device_id = if is_online {
+                u64::from_str_radix(device_id_str, 16).unwrap()
+            } else {
+                Device::convert_ip_to_id(device_id_str.to_string())
+            };
+
             let device_type_str = parts.next().unwrap();
 
             let authorized = device_type_str != "unauthorized";
@@ -80,7 +123,7 @@ fn get_adb_devices() -> Vec<Device> {
                 DeviceType::Emulator
             };
 
-            Some(Device::new(device_id, device_type, authorized))
+            Some(Device::new(device_id, device_type, authorized, is_online))
         })
         .collect();
 
@@ -92,6 +135,7 @@ pub fn enumerate_native_handlers() -> Box<dyn Fn(Invoke<Wry>) + Send + Sync + 's
         get_sys_version,
         get_locale,
         is_adb_installed,
-        get_adb_devices
+        get_adb_devices,
+        get_adb_users
     ])
 }

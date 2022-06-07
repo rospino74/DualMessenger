@@ -8,12 +8,6 @@
         [invoke("get_locale"), "System locale"],
         [invoke("is_adb_installed"), "ADB installed"],
     ];
-
-    invoke("get_adb_devices").then((obj) => {
-        let e = document.createElement("code");
-        e.innerText = JSON.stringify(obj, null, 2);
-        prose.appendChild(e);
-    });
 </script>
 
 <div class="prose" bind:this={prose}>
@@ -30,6 +24,32 @@
             </li>
         {/each}
     </ul>
+    <h1>ADB Info</h1>
+    <ul>
+        {#await invoke("get_adb_devices")}
+            <li class="item">
+                Devices <span class="waiting">Waiting...</span>
+            </li>
+        {:then result}
+            {#if result.length === 0}
+                <li class="item">
+                    <span class="value error">No devices found</span>
+                </li>
+            {:else}
+                <li class="item">
+                    Devices <code>{JSON.stringify(result, null, 2)}</code>
+                </li>
+                <li class="item">
+                    Users
+                    {#await invoke("get_adb_users", result[0])}
+                        <span class="waiting">Waiting...</span>
+                    {:then result}
+                        <code>{JSON.stringify(result, null, 2)}</code>
+                    {/await}
+                </li>
+            {/if}
+        {/await}
+    </ul>
 </div>
 
 <style lang="scss">
@@ -42,6 +62,10 @@
 
         .value {
             @apply text-primary font-bold;
+
+            &.error {
+                @apply text-error;
+            }
         }
     }
 </style>
