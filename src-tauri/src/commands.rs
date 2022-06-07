@@ -113,12 +113,10 @@ fn get_adb_devices() -> Vec<Device> {
             if line.is_empty() {
                 return None;
             }
-
-            let mut parts = line.split_whitespace();
-            let device_id_str = parts.next().unwrap();
+            let (device_id_str, device_type_str): (String, String);
+            scan!(line.bytes() => "{}\t{}", device_id_str, device_type_str);
+            
             let is_online = device_id_str.contains(".");
-
-            let device_type_str = parts.next().unwrap();
             let authorized = device_type_str != "unauthorized";
             let device_type = if device_type_str == "device" {
                 DeviceType::Device
@@ -128,13 +126,13 @@ fn get_adb_devices() -> Vec<Device> {
 
             if is_online {
                 Some(Device::new_online(
-                    device_id_str.to_string(),
+                    device_id_str,
                     device_type,
                     authorized,
                 ))
             } else {
                 Some(Device::new(
-                    u64::from_str_radix(device_id_str, 16).unwrap(),
+                    u64::from_str_radix(&device_id_str, 16).unwrap(),
                     device_type,
                     authorized,
                 ))
