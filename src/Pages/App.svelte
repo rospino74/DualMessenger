@@ -74,7 +74,7 @@
   <h3 class="font-bold text-3xl text-center">{$_("pick_an_apk")}</h3>
   <p class="py-4 text-center flex justify-center items-center flex-col">
     <span class="block mb-2">{$_("pick_a_package")}</span>
-    <APKPicker bind:file={file} />
+    <APKPicker bind:file />
   </p>
   <div class="modal-action">
     <button class="btn btn-primary btn-outline gap-2">
@@ -92,7 +92,7 @@
 </Modal>
 
 <button
-  class="fixed right-0 bottom-0 m-4 btn btn-square"
+  class="fixed right-0 bottom-0 m-6 btn btn-square"
   on:click={() => (isUploadModalOpen = true)}
 >
   <PlusIcon size="20" />
