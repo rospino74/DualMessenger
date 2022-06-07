@@ -43,11 +43,17 @@
                     Users
                     {#await invoke("get_adb_users", result[0])}
                         <span class="waiting">Waiting...</span>
-                    {:then result}
-                        <code>{JSON.stringify(result, null, 2)}</code>
+                    {:then result2}
+                        <code>{JSON.stringify(result2, null, 2)}</code>
+                    {:catch error}
+                        <span class="value error">{error}</span>
                     {/await}
                 </li>
             {/if}
+        {:catch error}
+            <li class="item">
+                Devices <span class="value error">{error}</span>
+            </li>
         {/await}
     </ul>
 </div>
