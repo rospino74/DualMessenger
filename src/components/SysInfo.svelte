@@ -1,8 +1,6 @@
 <script>
     import { invoke } from "@tauri-apps/api/tauri";
 
-    let prose;
-
     const promises = [
         [invoke("get_sys_version"), "OS Version"],
         [invoke("get_locale"), "System locale"],
@@ -10,7 +8,7 @@
     ];
 </script>
 
-<div class="prose" bind:this={prose}>
+<div class="prose">
     <h1>System info</h1>
     <ul>
         {#each promises as promise}
@@ -41,7 +39,7 @@
                 </li>
                 <li class="item">
                     Users
-                    {#await invoke("get_adb_users", result[0])}
+                    {#await invoke("get_adb_users", { device: result[0] })}
                         <span class="waiting">Waiting...</span>
                     {:then result2}
                         <code>{JSON.stringify(result2, null, 2)}</code>
