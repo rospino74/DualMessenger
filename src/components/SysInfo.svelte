@@ -18,6 +18,8 @@
                     <span class="waiting">Waiting...</span>
                 {:then result}
                     <span class="value">{result}</span>
+                {:catch error}
+                    <span class="value error">{error}</span>
                 {/await}
             </li>
         {/each}
