@@ -33,14 +33,8 @@ pub async fn is_adb_installed() -> bool {
 
 #[command]
 pub async fn get_adb_users(device: Device) -> Vec<User> {
-    let id = if *device.online() {
-        device.ip().unwrap()
-    } else {
-        device.id().to_string()
-    };
-
     let output = run_adb_command!(
-        ["-s", &id], // Specify the device to use (-s <device_id>)
+        ["-s", &device.id()], // Specify the device to use (-s <device_id>)
         ["shell", "pm", "list", "users"]
     );
 
@@ -92,15 +86,12 @@ pub async fn get_adb_devices() -> Vec<Device> {
                 DeviceType::Emulator
             };
 
-            if is_online {
-                Some(Device::new_online(device_id_str, device_type, authorized))
-            } else {
-                Some(Device::new(
-                    u64::from_str_radix(&device_id_str, 16).unwrap(),
-                    device_type,
-                    authorized,
-                ))
-            }
+            Some(Device::new(
+                device_id_str,
+                device_type,
+                authorized,
+                is_online,
+            ))
         })
         .collect();
 
