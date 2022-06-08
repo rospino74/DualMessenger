@@ -1,7 +1,29 @@
-use tauri::{command, api::process::Command};
+use super::types::*;
+use tauri::{api::process::Command, command};
 use text_io::scan;
 use which::which;
-use super::types::*;
+
+macro_rules! run_adb_command {
+    ($param:expr, $args:expr) => {
+        Command::new("adb")
+            .args($param)
+            .args($args)
+            .output()
+            .expect("error while running command")
+            .stdout
+    };
+    ($args:expr) => {
+        run_adb_command!([""], $args)
+    };
+}
+
+macro_rules! skip_until {
+    ($iterator:expr, $search:expr) => {{
+        let mut lines = $iterator.skip_while(|line| !line.starts_with($search));
+        lines.next();
+        lines
+    }};
+}
 
 #[command]
 pub async fn is_adb_installed() -> bool {
@@ -17,17 +39,13 @@ pub async fn get_adb_users(device: Device) -> Vec<User> {
         device.id().to_string()
     };
 
-    let output = Command::new("adb")
-        .args(["-s", &id]) // Specify the device serial id
-        .args(["shell", "pm", "list", "users"])
-        .output()
-        .expect("failed to get the user list");
+    let output = run_adb_command!(
+        ["-s", &id], // Specify the device to use (-s <device_id>)
+        ["shell", "pm", "list", "users"]
+    );
 
     // Drop all the lines until the user list
-    let mut lines = output.stdout.lines().skip_while(|line| !line.starts_with("Users"));
-    lines.next();
-
-    let users: Vec<_> = lines
+    let users: Vec<_> = skip_until!(output.lines(), "User")
         .filter_map(|line| {
             if line.is_empty() {
                 return None;
@@ -54,27 +72,18 @@ pub async fn get_adb_users(device: Device) -> Vec<User> {
 
 #[command]
 pub async fn get_adb_devices() -> Vec<Device> {
-    let output = Command::new("adb")
-        .args(["devices"])
-        .output()
-        .expect("failed to get the adb devices");
+    let output = run_adb_command!(["devices"]);
 
     // Drop all the lines until the device list
-    let mut lines = output.stdout
-        .lines()
-        .skip_while(|line| !line.starts_with("List of devices attached"));
-    // Drop the first line
-    lines.next();
-
     // Now we can iterate over the lines and parse the device
-    let devices: Vec<_> = lines
+    let devices: Vec<_> = skip_until!(output.lines(), "List of devices attached")
         .filter_map(|line| {
             if line.is_empty() {
                 return None;
             }
             let (device_id_str, device_type_str): (String, String);
             scan!(line.bytes() => "{}\t{}", device_id_str, device_type_str);
-            
+
             let is_online = device_id_str.contains(".");
             let authorized = device_type_str != "unauthorized";
             let device_type = if device_type_str == "device" {
@@ -84,11 +93,7 @@ pub async fn get_adb_devices() -> Vec<Device> {
             };
 
             if is_online {
-                Some(Device::new_online(
-                    device_id_str,
-                    device_type,
-                    authorized,
-                ))
+                Some(Device::new_online(device_id_str, device_type, authorized))
             } else {
                 Some(Device::new(
                     u64::from_str_radix(&device_id_str, 16).unwrap(),
@@ -101,3 +106,4 @@ pub async fn get_adb_devices() -> Vec<Device> {
 
     devices
 }
+
