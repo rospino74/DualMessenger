@@ -48,7 +48,7 @@ fn is_adb_installed() -> bool {
 }
 
 #[command]
-fn get_adb_users(device: Device) -> Vec<User> {
+async fn get_adb_users(device: Device) -> Vec<User> {
     let id = if *device.online() {
         device.ip().unwrap()
     } else {
@@ -91,7 +91,7 @@ fn get_adb_users(device: Device) -> Vec<User> {
 }
 
 #[command]
-fn get_adb_devices() -> Vec<Device> {
+async fn get_adb_devices() -> Vec<Device> {
     let output = Command::new("adb")
         .args(["devices"])
         .output()
