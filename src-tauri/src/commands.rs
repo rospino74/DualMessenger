@@ -1,5 +1,6 @@
 use sys_locale::get_locale as get_system_locale;
 use tauri::{command, generate_handler, Invoke, Wry, api::process::Command};
+use crate::adb;
 
 #[cfg(target_os = "windows")]
 use {winreg::enums::HKEY_LOCAL_MACHINE, winreg::RegKey};
@@ -42,5 +43,8 @@ pub fn enumerate_native_handlers() -> Box<dyn Fn(Invoke<Wry>) + Send + Sync + 's
     Box::new(generate_handler![
         get_sys_version,
         get_locale,
+        adb::commands::is_adb_installed,
+        adb::commands::get_adb_devices,
+        adb::commands::get_adb_users,
     ])
 }
