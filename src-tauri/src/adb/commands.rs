@@ -1,8 +1,7 @@
 use super::{types::*, utils::*};
+use tauri::command;
 use text_io::scan;
 use which::which;
-
-
 
 #[command]
 pub async fn is_adb_installed() -> bool {
