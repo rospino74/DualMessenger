@@ -37,18 +37,40 @@
                 </li>
             {:else}
                 <li class="item">
-                    Devices <code>{JSON.stringify(result, null, 2)}</code>
+                    Devices <pre><code>{JSON.stringify(result, null, 2)}</code></pre>
                 </li>
-                <li class="item">
-                    Users
-                    {#await invoke("get_adb_users", { device: result[0] })}
+                {#await invoke("get_adb_users", { device: result[0] })}
+                    <li class="item">
+                        Users
                         <span class="waiting">Waiting...</span>
-                    {:then result2}
-                        <code>{JSON.stringify(result2, null, 2)}</code>
+                    </li>
+                {:then result2}
+                    <li class="item">
+                        Users
+                    <pre><code>{JSON.stringify(result2, null, 2)}</code></pre>
+                    </li>
+                    {#await invoke("get_adb_packages", { device: result[0], user: result2[0] })}
+                        <li class="item">
+                            Packages
+                            <span class="waiting">Waiting...</span>
+                        </li>
+                    {:then result3}
+                        <li class="item">
+                            Packages
+                            <pre><code>{JSON.stringify(result3, null, 2)}</code></pre>
+                        </li>
                     {:catch error}
-                        <span class="value error">{error}</span>
+                        <li class="item">
+                            Packages
+                            <span class="value error">{error}</span>
+                        </li>
                     {/await}
-                </li>
+                {:catch error}
+                    <li class="item">
+                        Users
+                        <span class="value error">{error}</span>
+                    </li>
+                {/await}
             {/if}
         {:catch error}
             <li class="item">

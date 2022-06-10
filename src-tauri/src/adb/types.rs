@@ -38,3 +38,19 @@ impl User {
     }
 }
 
+#[derive(Serialize, Deserialize, Getters)]
+pub struct Package {
+    java_package: String,
+    name: String,
+    version: String,
+}
+
+impl Package {
+    pub fn new(java_package: String, name: String, version: String) -> Self {
+        Self {
+            java_package,
+            name,
+            version,
+        }
+    }
+}

@@ -1,29 +1,8 @@
-use super::types::*;
-use tauri::{api::process::Command, command};
+use super::{types::*, utils::*};
 use text_io::scan;
 use which::which;
 
-macro_rules! run_adb_command {
-    ($param:expr, $args:expr) => {
-        Command::new("adb")
-            .args($param)
-            .args($args)
-            .output()
-            .expect("error while running command")
-            .stdout
-    };
-    ($args:expr) => {
-        run_adb_command!([""], $args)
-    };
-}
 
-macro_rules! skip_until {
-    ($iterator:expr, $search:expr) => {{
-        let mut lines = $iterator.skip_while(|line| !line.starts_with($search));
-        lines.next();
-        lines
-    }};
-}
 
 #[command]
 pub async fn is_adb_installed() -> bool {
@@ -98,3 +77,53 @@ pub async fn get_adb_devices() -> Vec<Device> {
     devices
 }
 
+#[command]
+pub async fn get_adb_packages(device: Device, user: User) -> Vec<Package> {
+    let device_id = device.id();
+    let user_id = user.id().to_string();
+
+    let output = run_adb_command!(
+        ["-s", &device_id], // Specify the device to use (-s <device_id>)
+        [
+            "shell",
+            "pm",
+            "list",
+            "packages",
+            "-3",
+            "--user",
+            &user_id
+        ]
+    );
+
+    output
+        .lines()
+        .filter_map(|line| {
+            let (package_name, package_version): (String, String);
+
+            // Check if the line is empty, if so, go to the next line
+            if line.is_empty() {
+                return None;
+            }
+
+            // Get the package name
+            scan!(line.bytes() => "package:{}", package_name);
+
+            // Now get the package version
+            let dumpsys_output = run_adb_command!(
+                ["-s", &device_id], // Specify the device to use (-s <device_id>)
+                [
+                    "shell",
+                    "dumpsys",
+                    "package",
+                    &package_name,
+                    "|",
+                    "grep",
+                    "versionName"
+                ]
+            );
+            scan!(dumpsys_output.bytes() => "versionName={}", package_version);
+
+            Some(Package::new(package_name.clone(), package_name, package_version))
+        })
+        .collect()
+}

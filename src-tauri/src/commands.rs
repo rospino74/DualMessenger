@@ -46,5 +46,6 @@ pub fn enumerate_native_handlers() -> Box<dyn Fn(Invoke<Wry>) + Send + Sync + 's
         adb::commands::is_adb_installed,
         adb::commands::get_adb_devices,
         adb::commands::get_adb_users,
+        adb::commands::get_adb_packages,
     ])
 }
