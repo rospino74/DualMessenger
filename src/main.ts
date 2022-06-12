@@ -1,5 +1,5 @@
 import { initializeI18n } from "./i18n";
-import App from "./Pages/App.svelte";
+import App from "./App.svelte";
 
 // Initialize the i18n library
 await initializeI18n();

@@ -8,6 +8,9 @@ const style_folder = join(__dirname, "./src/styles");
 export default defineConfig({
   root: "src",
   publicDir: "../dist",
+  optimizeDeps: {
+    exclude: ["svelte-navigator"], // https://github.com/mefechoel/svelte-navigator#im-using-vite-why-am-i-getting-errors-with-svelte-navigator
+  },
   plugins: [
     svelte({
       preprocess: sveltePreprocess({

@@ -35,6 +35,7 @@
     "daisyui": "^2.15.2",
     "svelte-feather-icons": "^4.0.0",
     "svelte-i18n": "^3.4.0",
+    "svelte-navigator": "^3.1.6",
     "svelte-portal": "^2.1.2"
   }
 }
