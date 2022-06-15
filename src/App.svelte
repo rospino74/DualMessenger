@@ -1,10 +1,14 @@
-<script lang="ts">
+<script>
   import { _ } from "svelte-i18n";
   import { Router, Route } from "svelte-navigator";
   import AppList from "./routes/AppList.svelte";
+  import DeviceList from "./routes/DeviceList.svelte";
+
+  import createHashHistory from "./logic/hashHistory";
+  const hash = createHashHistory();
 </script>
 
-<Router>
+<Router primary={false} history={hash}>
   <Route path="/">
     <AppList />
   </Route>
