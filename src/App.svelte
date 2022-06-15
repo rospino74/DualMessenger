@@ -9,6 +9,9 @@
 </script>
 
 <Router primary={false} history={hash}>
+  <Route path="/devices">
+    <DeviceList />
+  </Route>
   <Route path="/">
     <AppList />
   </Route>

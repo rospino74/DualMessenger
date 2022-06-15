@@ -1,6 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import { DownloadIcon, PlusIcon, XIcon } from "svelte-feather-icons";
+  import { DownloadIcon, PlusIcon, XIcon, SmartphoneIcon } from "svelte-feather-icons";
+  import { Link } from "svelte-navigator";
   import AppCard from "../components/AppCard.svelte";
   import LoadingIcon from "../components/LoadingIcon.svelte";
   import Modal from "../components/Modal.svelte";
@@ -47,7 +48,16 @@
   }
 </script>
 
-<h1 class="prose-h1">{$_("list_of_packages")}</h1>
+<div class="prose">
+<h1>{$_("list_of_packages")}</h1>
+</div>
+<Link to="devices">
+	<button class="btn btn-secondary gap-2">
+    <SmartphoneIcon size="20" />
+    Dispositivi
+  </button>
+</Link>
+
 <main>
   {#each apps as app (app.name)}
     <div>
