@@ -44,34 +44,48 @@ pub async fn get_adb_users(device: Device) -> Vec<User> {
 
 #[command]
 pub async fn get_adb_devices() -> Vec<Device> {
-    let output = run_adb_command!(["devices"]);
+    let output = {
+        use tauri::api::process::Command;
+        Command::new("adb")
+            .args([""])
+            .args(["devices"])
+            .output()
+            .expect("error while running command")
+            .stdout
+    };
 
     // Drop all the lines until the device list
     // Now we can iterate over the lines and parse the device
-    let devices: Vec<_> = skip_until!(output.lines(), "List of devices attached")
-        .filter_map(|line| {
-            if line.is_empty() {
-                return None;
-            }
-            let (device_id_str, device_type_str): (String, String);
-            scan!(line.bytes() => "{}\t{}", device_id_str, device_type_str);
+    let devices: Vec<_> = {
+        let mut lines = output
+            .lines()
+            .skip_while(|line| !line.starts_with("List of devices attached"));
+        lines.next();
+        lines
+    }
+    .filter_map(|line| {
+        if line.is_empty() {
+            return None;
+        }
+        let (device_id_str, device_type_str): (String, String);
+        scan!(line.bytes() => "{}\t{}", device_id_str, device_type_str);
 
-            let is_online = device_id_str.contains(".");
-            let authorized = device_type_str != "unauthorized";
-            let device_type = if device_type_str == "device" {
-                DeviceType::Device
-            } else {
-                DeviceType::Emulator
-            };
+        let is_online = device_id_str.contains(".");
+        let authorized = device_type_str != "unauthorized";
+        let device_type = if device_type_str == "device" {
+            DeviceType::Device
+        } else {
+            DeviceType::Emulator
+        };
 
-            Some(Device::new(
-                device_id_str,
-                device_type,
-                authorized,
-                is_online,
-            ))
-        })
-        .collect();
+        Some(Device::new(
+            device_id_str,
+            device_type,
+            authorized,
+            is_online,
+        ))
+    })
+    .collect();
 
     devices
 }
@@ -83,15 +97,7 @@ pub async fn get_adb_packages(device: Device, user: User) -> Vec<Package> {
 
     let output = run_adb_command!(
         ["-s", &device_id], // Specify the device to use (-s <device_id>)
-        [
-            "shell",
-            "pm",
-            "list",
-            "packages",
-            "-3",
-            "--user",
-            &user_id
-        ]
+        ["shell", "pm", "list", "packages", "-3", "--user", &user_id]
     );
 
     output
@@ -122,7 +128,11 @@ pub async fn get_adb_packages(device: Device, user: User) -> Vec<Package> {
             );
             scan!(dumpsys_output.bytes() => "versionName={}", package_version);
 
-            Some(Package::new(package_name.clone(), package_name, package_version))
+            Some(Package::new(
+                package_name.clone(),
+                package_name,
+                package_version,
+            ))
         })
         .collect()
 }
