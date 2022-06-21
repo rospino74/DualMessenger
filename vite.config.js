@@ -11,6 +11,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["svelte-navigator"], // https://github.com/mefechoel/svelte-navigator#im-using-vite-why-am-i-getting-errors-with-svelte-navigator
   },
+  envPrefix: ['VITE_', 'TAURI_'], // https://tauri.app/v1/guides/getting-started/setup/vite
   plugins: [
     svelte({
       preprocess: sveltePreprocess({
@@ -36,6 +37,10 @@ export default defineConfig({
     }
   },
   build: {
+    // ---- https://tauri.app/v1/guides/getting-started/setup/vite
+    minify: !process.env.TAURI_DEBUG && "esbuild",
+    sourcemap: !!process.env.TAURI_DEBUG,
+    // ----
     target: "es2022",
     outDir: "../dist",
     emptyOutDir: true,
