@@ -16,6 +16,8 @@ pub async fn get_adb_users(device: Device) -> Vec<User> {
         ["shell", "pm", "list", "users"]
     );
 
+    println!("ADB -s {} shell pm list users: {}", &device.id(), output);
+
     // Drop all the lines until the user list
     let users: Vec<_> = skip_until!(output.lines(), "User")
         .filter_map(|line| {
@@ -53,6 +55,8 @@ pub async fn get_adb_devices() -> Vec<Device> {
             .expect("error while running command")
             .stdout
     };
+
+    println!("ADB devices: {}", output);
 
     // Drop all the lines until the device list
     // Now we can iterate over the lines and parse the device
@@ -99,6 +103,8 @@ pub async fn get_adb_packages(device: Device, user: User) -> Vec<Package> {
         ["-s", &device_id], // Specify the device to use (-s <device_id>)
         ["shell", "pm", "list", "packages", "-3", "--user", &user_id]
     );
+
+    println!("ADB -s {} shell pm list packages -3 --user {}: {}", &device_id, &user_id, output);
 
     output
         .lines()
