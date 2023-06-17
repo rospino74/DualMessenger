@@ -1,6 +1,10 @@
 macro_rules! run_adb_command {
     ($param:expr, $args:expr) => {{
         use tauri::api::process::Command;
+
+        #[cfg(debug_assertions)]
+        println!("Running adb {} {}", $param.join(" "), $args.join(" "));
+
         Command::new("adb")
             .args($param)
             .args($args)
