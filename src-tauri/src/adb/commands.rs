@@ -46,16 +46,8 @@ pub async fn get_adb_users(device: Device) -> Vec<User> {
 
 #[command]
 pub async fn get_adb_devices() -> Vec<Device> {
-    let output = {
-        use tauri::api::process::Command;
-        Command::new("adb")
-            .args([""])
-            .args(["devices"])
-            .output()
-            .expect("error while running command")
-            .stdout
-    };
-
+    let output = run_adb_command!(["devices"]);
+    
     println!("ADB devices: {}", output);
 
     // Drop all the lines until the device list
