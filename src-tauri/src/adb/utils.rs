@@ -13,7 +13,7 @@ macro_rules! run_adb_command {
             .stdout;
 
         #[cfg(debug_assertions)]
-        println!("Result: {}", String::from_utf8_lossy(&result));
+        println!("Result: {}", result);
 
         result
     }};
