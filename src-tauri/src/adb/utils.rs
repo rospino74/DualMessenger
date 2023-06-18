@@ -5,12 +5,17 @@ macro_rules! run_adb_command {
         #[cfg(debug_assertions)]
         println!("Running adb {} {}", $param.join(" "), $args.join(" "));
 
-        Command::new("adb")
+        let result = Command::new("adb")
             .args($param)
             .args($args)
             .output()
             .expect("error while running command")
-            .stdout
+            .stdout;
+
+        #[cfg(debug_assertions)]
+        println!("Result: {}", String::from_utf8_lossy(&result));
+
+        result
     }};
     ($args:expr) => {
         run_adb_command!([""], $args)
