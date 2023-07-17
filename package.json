@@ -26,7 +26,7 @@
     "svelte": "^3.59.1",
     "svelte-loading-spinners": "^0.3.4",
     "svelte-preprocess": "^5.0.4",
-    "tailwindcss": "^3.3.2",
+    "tailwindcss": "^3.3.3",
     "tslib": "^2.6.0",
     "typescript": "^5.1.6",
     "vite": "^4.4.4"
