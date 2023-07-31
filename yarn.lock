@@ -270,7 +270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.13, @jridgewell/sourcemap-codec@npm:^1.4.14":
+"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.13, @jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.4.15":
   version: 1.4.15
   resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
   checksum: b881c7e503db3fc7f3c1f35a1dd2655a188cc51a3612d76efc8a6eb74728bef5606e6758ee77423e564092b4a518aba569bbb21c9bac5ab7a35b0c6ae7e344c8
@@ -351,16 +351,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "@rollup/pluginutils@npm:4.2.1"
-  dependencies:
-    estree-walker: ^2.0.1
-    picomatch: ^2.2.2
-  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
-  languageName: node
-  linkType: hard
-
 "@rollup/pluginutils@npm:^5.0.1":
   version: 5.0.2
   resolution: "@rollup/pluginutils@npm:5.0.2"
@@ -377,24 +367,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/vite-plugin-svelte@npm:^1.0.0-next.31":
-  version: 1.0.0-next.44
-  resolution: "@sveltejs/vite-plugin-svelte@npm:1.0.0-next.44"
+"@sveltejs/vite-plugin-svelte-inspector@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@sveltejs/vite-plugin-svelte-inspector@npm:1.0.3"
   dependencies:
-    "@rollup/pluginutils": ^4.2.1
     debug: ^4.3.4
-    deepmerge: ^4.2.2
-    kleur: ^4.1.4
-    magic-string: ^0.26.1
-    svelte-hmr: ^0.14.11
   peerDependencies:
-    diff-match-patch: ^1.0.5
-    svelte: ^3.44.0
-    vite: ^2.9.0
-  peerDependenciesMeta:
-    diff-match-patch:
-      optional: true
-  checksum: c222a4a63f30618fa098caca631999a9252b3a282821e1b7731f6f5999a4085a1c7dee7202a1602d4348ca3c9f9d4338f187afca744c6b91da41c2eecb11a3fa
+    "@sveltejs/vite-plugin-svelte": ^2.2.0
+    svelte: ^3.54.0 || ^4.0.0
+    vite: ^4.0.0
+  checksum: 868574e32974196a49670137c171e788f95610548d8ff090267d4a6e92fd2d5e3ab862e0c367e69268d57ab6edd972e3ba5139926d7e2e7f995f23336d8d53be
+  languageName: node
+  linkType: hard
+
+"@sveltejs/vite-plugin-svelte@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "@sveltejs/vite-plugin-svelte@npm:2.4.3"
+  dependencies:
+    "@sveltejs/vite-plugin-svelte-inspector": ^1.0.3
+    debug: ^4.3.4
+    deepmerge: ^4.3.1
+    kleur: ^4.1.5
+    magic-string: ^0.30.1
+    svelte-hmr: ^0.15.2
+    vitefu: ^0.2.4
+  peerDependencies:
+    svelte: ^3.54.0 || ^4.0.0
+    vite: ^4.0.0
+  checksum: 8f8edab4358df0bb65c0f7e469c9a08cd44257fc85651e976331764d68b43f96009ec98c4707e5ffa23297488b151943dbac7f336fc21fbac1a6dbcb8f4aa350
   languageName: node
   linkType: hard
 
@@ -563,7 +563,7 @@ __metadata:
   resolution: "DualMessenger@workspace:."
   dependencies:
     "@rollup/plugin-json": ^6.0.0
-    "@sveltejs/vite-plugin-svelte": ^1.0.0-next.31
+    "@sveltejs/vite-plugin-svelte": ^2.4.3
     "@tailwindcss/typography": ^0.5.9
     "@tauri-apps/api": ^1.0.1
     "@tauri-apps/cli": ^1.0.0
@@ -996,6 +996,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepmerge@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "deepmerge@npm:4.3.1"
+  checksum: 2024c6a980a1b7128084170c4cf56b0fd58a63f2da1660dcfe977415f27b17dbe5888668b59d0b063753f3220719d5e400b7f113609489c90160bb9a5518d052
+  languageName: node
+  linkType: hard
+
 "delegates@npm:^1.0.0":
   version: 1.0.0
   resolution: "delegates@npm:1.0.0"
@@ -1217,7 +1224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^2, estree-walker@npm:^2.0.1, estree-walker@npm:^2.0.2":
+"estree-walker@npm:^2, estree-walker@npm:^2.0.2":
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
   checksum: 6151e6f9828abe2259e57f5fd3761335bb0d2ebd76dc1a01048ccee22fabcfef3c0859300f6d83ff0d1927849368775ec5a6d265dde2f6de5a1be1721cd94efc
@@ -1694,6 +1701,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kleur@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "kleur@npm:4.1.5"
+  checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
+  languageName: node
+  linkType: hard
+
 "lilconfig@npm:^2.0.5":
   version: 2.0.5
   resolution: "lilconfig@npm:2.0.5"
@@ -1784,21 +1798,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.26.1":
-  version: 0.26.2
-  resolution: "magic-string@npm:0.26.2"
-  dependencies:
-    sourcemap-codec: ^1.4.8
-  checksum: b4db4e2b370ac8d9ffc6443a2b591b75364bf1fc9121b5a4068d5b89804abff6709d1fa4a0e0c2d54f2e61e0e44db83efdfe219a5ab0ba6d25ee1f2b51fbed55
-  languageName: node
-  linkType: hard
-
 "magic-string@npm:^0.27.0":
   version: 0.27.0
   resolution: "magic-string@npm:0.27.0"
   dependencies:
     "@jridgewell/sourcemap-codec": ^1.4.13
   checksum: 273faaa50baadb7a2df6e442eac34ad611304fc08fe16e24fe2e472fd944bfcb73ffb50d2dc972dc04e92784222002af46868cb9698b1be181c81830fd95a13e
+  languageName: node
+  linkType: hard
+
+"magic-string@npm:^0.30.1":
+  version: 0.30.2
+  resolution: "magic-string@npm:0.30.2"
+  dependencies:
+    "@jridgewell/sourcemap-codec": ^1.4.15
+  checksum: c0bbb9b27b2772e6bfaa5d0f6452d47c462d588ae7c43fbaac062b07836d3ec0140fcdd42a57aa53ed990abafcdd0fc17907813921b5df04eccf43e67674bc57
   languageName: node
   linkType: hard
 
@@ -2211,7 +2225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.3.1":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
@@ -2664,13 +2678,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sourcemap-codec@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "sourcemap-codec@npm:1.4.8"
-  checksum: b57981c05611afef31605732b598ccf65124a9fcb03b833532659ac4d29ac0f7bfacbc0d6c5a28a03e84c7510e7e556d758d0bb57786e214660016fb94279316
-  languageName: node
-  linkType: hard
-
 "ssri@npm:^10.0.0":
   version: 10.0.4
   resolution: "ssri@npm:10.0.4"
@@ -2772,12 +2779,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-hmr@npm:^0.14.11":
-  version: 0.14.11
-  resolution: "svelte-hmr@npm:0.14.11"
+"svelte-hmr@npm:^0.15.2":
+  version: 0.15.2
+  resolution: "svelte-hmr@npm:0.15.2"
   peerDependencies:
-    svelte: ">=3.19.0"
-  checksum: 87c339d753befeca4efc694064e1b32306f0e0db8e14929b1fb0479a40166c6de799d870f6b84cfcaee43098c6c2a8fd4211f2f72b569414da5b3b28aefda4df
+    svelte: ^3.19.0 || ^4.0.0-next.0
+  checksum: bf1179de47100353ef002d96e2b20782420a388cc5a451a1c3564643fde0423ac7b689a4cded728a6dee5e30a80e44089790be4bf5c37189b14704bf8a6efaf6
   languageName: node
   linkType: hard
 
@@ -3170,6 +3177,18 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 51c208e53680fa46f7166e49b037625ae43d507f85f1fd3da7e290263bccb77d5f8c466fe82746285927620afeeff949ac3b8e1b6a7b4fe7bfe11419729256b4
+  languageName: node
+  linkType: hard
+
+"vitefu@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "vitefu@npm:0.2.4"
+  peerDependencies:
+    vite: ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    vite:
+      optional: true
+  checksum: 4add282ffec4f27388aa75df2cd7db9a674d51bf9471907441ca23ff5ac70fc9540344dbf3a53af0aa53685f1d7b8c756da5f9749afe91aac66c82a25ade7821
   languageName: node
   linkType: hard
 
