@@ -598,7 +598,7 @@ __metadata:
     autoprefixer: ^10.4.14
     daisyui: ^3.5.1
     history: ^5.3.0
-    postcss: ^8.4.24
+    postcss: ^8.4.27
     sass: ^1.63.6
     sirv-cli: ^2.0.2
     svelte: ^4.2.0
@@ -2459,7 +2459,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.24":
+"postcss@npm:^8.4.23":
   version: 8.4.24
   resolution: "postcss@npm:8.4.24"
   dependencies:
