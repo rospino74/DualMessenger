@@ -18,7 +18,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@tauri-apps/api": "^1.0.1",
     "@tauri-apps/cli": "^1.0.0",
-    "@tsconfig/svelte": "^5.0.0",
+    "@tsconfig/svelte": "^5.0.2",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.24",
     "sass": "^1.66.1",
