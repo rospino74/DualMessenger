@@ -19,7 +19,7 @@
     "@tauri-apps/api": "^1.0.1",
     "@tauri-apps/cli": "^1.0.0",
     "@tsconfig/svelte": "^5.0.2",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "postcss": "^8.4.24",
     "sass": "^1.67.0",
     "sirv-cli": "^2.0.2",
