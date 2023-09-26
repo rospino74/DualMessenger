@@ -1,6 +1,6 @@
 import { defineConfig } from "vite"
-import { svelte } from "@sveltejs/vite-plugin-svelte"
 import sveltePreprocess from "svelte-preprocess"
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { join } from "path"
 
 const style_folder = join(__dirname, "./src/styles");
@@ -48,7 +48,7 @@ export default defineConfig({
       // I like that :) https://stackoverflow.com/q/71180561/
       output: {
         assetFileNames: (assetInfo) => {
-          let extType = assetInfo.name.split('.')[1];
+          let extType = assetInfo?.name?.split('.')[1] ?? "assets";
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
             extType = "img";
           } else if (/woff|woff2/.test(extType)) {
