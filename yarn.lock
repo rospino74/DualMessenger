@@ -756,7 +756,7 @@ __metadata:
     postcss-load-config: ^4.0.1
     sass: ^1.69.5
     sirv-cli: ^2.0.2
-    svelte: ^4.2.2
+    svelte: ^4.2.3
     svelte-feather-icons: ^4.0.1
     svelte-i18n: ^4.0.0
     svelte-loading-spinners: ^0.3.4
@@ -3272,9 +3272,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "svelte@npm:4.2.2"
+"svelte@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "svelte@npm:4.2.3"
   dependencies:
     "@ampproject/remapping": ^2.2.1
     "@jridgewell/sourcemap-codec": ^1.4.15
@@ -3289,7 +3289,7 @@ __metadata:
     locate-character: ^3.0.0
     magic-string: ^0.30.4
     periscopic: ^3.1.0
-  checksum: deb7c280331420ad1e835b96137a196599a30aac58b0b1542ab7cbf3de20d17249d50eaf9696934413dd4505ad1903c3c67e7e11c783b1aacf74809218e3d4eb
+  checksum: e8949f68319c745a7a0497824c53da1094b581b1c33a27a5ee9bc22c67a6c31728dc5d593d17eab46550ec787f43dec88fb2584a02c5891dde3fd5df18d62887
   languageName: node
   linkType: hard
 
