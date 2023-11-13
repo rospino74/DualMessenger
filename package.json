@@ -25,7 +25,7 @@
     "postcss-load-config": "^4.0.1",
     "sass": "^1.69.5",
     "sirv-cli": "^2.0.2",
-    "svelte": "^4.2.2",
+    "svelte": "^4.2.3",
     "svelte-loading-spinners": "^0.3.4",
     "svelte-preprocess": "^5.0.4",
     "tailwindcss": "^3.3.5",
