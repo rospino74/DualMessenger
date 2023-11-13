@@ -561,9 +561,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/vite-plugin-svelte@npm:^2.4.6":
-  version: 2.4.6
-  resolution: "@sveltejs/vite-plugin-svelte@npm:2.4.6"
+"@sveltejs/vite-plugin-svelte@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "@sveltejs/vite-plugin-svelte@npm:2.5.2"
   dependencies:
     "@sveltejs/vite-plugin-svelte-inspector": ^1.0.4
     debug: ^4.3.4
@@ -573,9 +573,9 @@ __metadata:
     svelte-hmr: ^0.15.3
     vitefu: ^0.2.4
   peerDependencies:
-    svelte: ^3.54.0 || ^4.0.0
+    svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
     vite: ^4.0.0
-  checksum: b00fb93208c8851f96cd2b6ac40a147311366d8d363088233abb9c1de62549146c57d2f3056cc96aec3bc3b18e2b5c77d1c723e4959bad9861c657b0b5e1235a
+  checksum: c38df9a4903503896c19c5ea298e9c9c59b61f478618d79d16ee17bf0ba4c84e27c620c82c4ab9b435d10791e338e72a719a221b8d60f8c405421f0afce46609
   languageName: node
   linkType: hard
 
@@ -744,7 +744,7 @@ __metadata:
   resolution: "DualMessenger@workspace:."
   dependencies:
     "@rollup/plugin-json": ^6.0.1
-    "@sveltejs/vite-plugin-svelte": ^2.4.6
+    "@sveltejs/vite-plugin-svelte": ^2.5.2
     "@tailwindcss/typography": ^0.5.10
     "@tauri-apps/api": ^1.5.1
     "@tauri-apps/cli": ^1.5.6
