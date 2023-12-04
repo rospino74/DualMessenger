@@ -834,7 +834,7 @@ __metadata:
     "@tauri-apps/cli": ^1.5.7
     "@tsconfig/svelte": ^5.0.2
     autoprefixer: ^10.4.16
-    daisyui: ^4.4.10
+    daisyui: ^4.4.19
     history: ^5.3.0
     postcss: ^8.4.32
     postcss-load-config: ^4.0.2
@@ -1280,15 +1280,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.4.10":
-  version: 4.4.10
-  resolution: "daisyui@npm:4.4.10"
+"daisyui@npm:^4.4.19":
+  version: 4.4.19
+  resolution: "daisyui@npm:4.4.19"
   dependencies:
     css-selector-tokenizer: ^0.8
     culori: ^3
     picocolors: ^1
     postcss-js: ^4
-  checksum: dbefd2c418fe1d8ffa7395c61a1a17765cccd99246126046bceafebaac15482a0522e70d0f3d216e69e7ae94d9301a39dcf2892d3c1b722d6e72e34949f05928
+  checksum: d46fea772e0bd223b980e20068b2c81560e6edfb857d4cc5442b8c0b198274fda34a2a943e9d25a774f0c6bcf9a2e229e4e3107470ca20e3195a587f9552be59
   languageName: node
   linkType: hard
 
