@@ -841,7 +841,7 @@ __metadata:
     sass: ^1.69.5
     sirv-cli: ^2.0.2
     svelte: ^4.2.8
-    svelte-feather-icons: ^4.0.1
+    svelte-feather-icons: ^4.1.0
     svelte-i18n: ^4.0.0
     svelte-loading-spinners: ^0.3.4
     svelte-navigator: ^3.2.2
@@ -3297,12 +3297,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-feather-icons@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "svelte-feather-icons@npm:4.0.1"
+"svelte-feather-icons@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "svelte-feather-icons@npm:4.1.0"
   dependencies:
     svelte: ^3.38.2
-  checksum: 20713d8ab3be61e11be47fa2b301205f9d7642235b642a7f21dc2976e55025f3710a85a161adfe1e1416a127f20d1133e3af08455193d9571e896613c445f911
+  checksum: 7f82c95cd33c8857f4af8ada747bbed765d0e220f9676f604e147851f4fd95a3324765cddcbdd5e39a99d29339f4f1e6bbf039e39ac16bf713cdb5e840f6379c
   languageName: node
   linkType: hard
 
