@@ -441,7 +441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.13, @jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.4.15":
+"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.4.15":
   version: 1.4.15
   resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
   checksum: b881c7e503db3fc7f3c1f35a1dd2655a188cc51a3612d76efc8a6eb74728bef5606e6758ee77423e564092b4a518aba569bbb21c9bac5ab7a35b0c6ae7e344c8
@@ -846,7 +846,7 @@ __metadata:
     svelte-loading-spinners: ^0.3.4
     svelte-navigator: ^3.2.2
     svelte-portal: ^2.2.0
-    svelte-preprocess: ^5.1.1
+    svelte-preprocess: ^5.1.3
     tailwindcss: ^3.3.6
     tslib: ^2.6.2
     typescript: ^5.3.3
@@ -2255,15 +2255,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.27.0":
-  version: 0.27.0
-  resolution: "magic-string@npm:0.27.0"
-  dependencies:
-    "@jridgewell/sourcemap-codec": ^1.4.13
-  checksum: 273faaa50baadb7a2df6e442eac34ad611304fc08fe16e24fe2e472fd944bfcb73ffb50d2dc972dc04e92784222002af46868cb9698b1be181c81830fd95a13e
-  languageName: node
-  linkType: hard
-
 "magic-string@npm:^0.30.4, magic-string@npm:^0.30.5":
   version: 0.30.5
   resolution: "magic-string@npm:0.30.5"
@@ -3359,13 +3350,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-preprocess@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "svelte-preprocess@npm:5.1.1"
+"svelte-preprocess@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "svelte-preprocess@npm:5.1.3"
   dependencies:
     "@types/pug": ^2.0.6
     detect-indent: ^6.1.0
-    magic-string: ^0.27.0
+    magic-string: ^0.30.5
     sorcery: ^0.11.0
     strip-indent: ^3.0.0
   peerDependencies:
@@ -3373,7 +3364,7 @@ __metadata:
     coffeescript: ^2.5.1
     less: ^3.11.3 || ^4.0.0
     postcss: ^7 || ^8
-    postcss-load-config: ^2.1.0 || ^3.0.0 || ^4.0.0
+    postcss-load-config: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
     pug: ^3.0.0
     sass: ^1.26.8
     stylus: ^0.55.0
@@ -3401,7 +3392,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: e4f54578fd186b8c30deec79e591e17f21b70dc241e290031f336a90034ee2add3b3e47f11a52c0e663ac811580400f5d50670ac760ecac34b713c3cfac99f8e
+  checksum: 8d3f26f07f83481f21736a13db09139a57df37e20b1120ac22b98e31c15da175933b6ab3fbe8315e8ace8bfcc27c5bb9ad20b90b0f5722d3852c842f76120275
   languageName: node
   linkType: hard
 
