@@ -39,6 +39,6 @@
     "svelte-feather-icons": "^4.1.0",
     "svelte-i18n": "^4.0.0",
     "svelte-navigator": "^3.2.2",
-    "svelte-portal": "^2.2.0"
+    "svelte-portal": "^2.2.1"
   }
 }
