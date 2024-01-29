@@ -632,7 +632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/vite-plugin-svelte-inspector@npm:^2.0.0-next.0 || ^2.0.0":
+"@sveltejs/vite-plugin-svelte-inspector@npm:^2.0.0":
   version: 2.0.0
   resolution: "@sveltejs/vite-plugin-svelte-inspector@npm:2.0.0"
   dependencies:
@@ -645,11 +645,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/vite-plugin-svelte@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@sveltejs/vite-plugin-svelte@npm:3.0.1"
+"@sveltejs/vite-plugin-svelte@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@sveltejs/vite-plugin-svelte@npm:3.0.2"
   dependencies:
-    "@sveltejs/vite-plugin-svelte-inspector": ^2.0.0-next.0 || ^2.0.0
+    "@sveltejs/vite-plugin-svelte-inspector": ^2.0.0
     debug: ^4.3.4
     deepmerge: ^4.3.1
     kleur: ^4.1.5
@@ -659,7 +659,7 @@ __metadata:
   peerDependencies:
     svelte: ^4.0.0 || ^5.0.0-next.0
     vite: ^5.0.0
-  checksum: 3a6b3a1bae74bf8e5ed5cb979c2e4d663fcecffb17941de70a44f8e58efdaa58adbd234efbaa4b537cf745ad6a66062f6f2fdc5f94e83592728f5d9b05737760
+  checksum: 86a8cb80b3f24495d913702c9528dfa45917ef4bb66ee3fcba745038f9056c41c7e9db30cb6828679eb9896c39cc4be6de9565a98e4cc140dda53938b8f5a688
   languageName: node
   linkType: hard
 
@@ -828,7 +828,7 @@ __metadata:
   resolution: "DualMessenger@workspace:."
   dependencies:
     "@rollup/plugin-json": ^6.1.0
-    "@sveltejs/vite-plugin-svelte": ^3.0.1
+    "@sveltejs/vite-plugin-svelte": ^3.0.2
     "@tailwindcss/typography": ^0.5.10
     "@tauri-apps/api": ^1.5.3
     "@tauri-apps/cli": ^1.5.9
